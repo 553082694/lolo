@@ -1,0 +1,27 @@
+{
+  "appKey": "",
+  "appSecret": "",
+  "excludeScenes": [],
+  "includeAnySDK": false,
+  "includeSDKBox": false,
+  "includeSdk": [
+    "anysdk"
+  ],
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": false,
+    "landscapeRight": false,
+    "portrait": true,
+    "upsideDown": false
+  },
+  "packageName": "com.roc.LoLo.android",
+  "privateKey": "",
+  "renderMode": "0",
+  "startScene": "e45f4ca4-c952-4c65-8b52-016eabbcd1a0",
+  "title": "LoLo",
+  "webOrientation": "portrait"
+}

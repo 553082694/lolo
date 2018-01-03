@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "f91ed668-97ca-4770-9f3b-3a57629deb24",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "baseball": {
+      "ver": "1.0.3",
+      "uuid": "31fedcdc-6ee8-4991-b7fb-2a42a0eef448",
+      "rawTextureUuid": "f91ed668-97ca-4770-9f3b-3a57629deb24",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 512,
+      "height": 512,
+      "rawWidth": 512,
+      "rawHeight": 512,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
