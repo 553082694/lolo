@@ -7,6 +7,9 @@ var _opacityHalf = 100;
 // 全透明度
 var _opacityAll = 0;
 
+var _totalB = 33;
+var _totalR = 12;
+
 cc.Class({
     extends: cc.Component,
 
@@ -33,24 +36,24 @@ cc.Class({
 
     initData: function() {
         this.__DataSourceB = [undefined];
-        for (var i = 1; i <= 33; i++) {
+        for (var i = 1; i <= _totalB; i++) {
             this.__DataSourceB.push(i);
         }
         this.__DataSourceR = [undefined];
-        for (var i = 1; i <= 12; i++) {
+        for (var i = 1; i <= _totalR; i++) {
             this.__DataSourceR.push(i);
         }
     },
 
     initUI: function() {
         this.BallPoolB.removeAllChildren();
-        for (var i = 1; i <= 33; i++) {
+        for (var i = 1; i <= _totalB; i++) {
             var ball = cc.instantiate(this.BallB);
             this.BallPoolB.addChild(ball);
             ball.getChildByName('lb').getComponent(cc.Label).string = i + '';
         }
         this.BallPoolR.removeAllChildren();
-        for (var i = 1; i <= 12; i++) {
+        for (var i = 1; i <= _totalR; i++) {
             var ball = cc.instantiate(this.BallR);
             this.BallPoolR.addChild(ball);
             ball.getChildByName('lb').getComponent(cc.Label).string = i + '';
@@ -60,12 +63,18 @@ cc.Class({
     resetRestBall: function() {
         _.forEach(this.BallPoolB.children, function(ball) {
             if (ball.opacity !== _opacityAll) {
-                // 熄灭Ball
+                cc.loader.loadRes('image/baseball', cc.SpriteFrame, function(err, texture) {
+                    ball.getComponent(cc.Sprite).spriteFrame = texture;
+                    ball.getChildByName('lb').color = cc.Color(0, 0, 0);
+                });
             }
         });
         _.forEach(this.BallPoolR.children, function(ball) {
             if (ball.opacity !== _opacityAll) {
-                // 熄灭Ball
+                cc.loader.loadRes('image/football', cc.SpriteFrame, function(err, texture) {
+                    ball.getComponent(cc.Sprite).spriteFrame = texture;
+                    ball.getChildByName('lb').color = cc.Color(0, 0, 0);
+                });
             }
         });
     },
@@ -130,24 +139,24 @@ cc.Class({
         if (resultR.length < 2) return;
 
         _.forEach(this.BallPoolB.children, function(ball) {
-            if (_.find(tmp_DataSourceB, function(data) { return Number(ball.getChildByName('lb').getComponent(cc.Label).string) === data; })) {
-                ball.getComponent(cc.Sprite).spriteFrame = cc.loader.getRes('image/basketball', cc.SpriteFrame);
-                // cc.loader.loadRes('image/basketball', cc.SpriteFrame, function(err, texture) {
-                //     if (err) {
-                //         log.e(err);
-                //     } else {
-                //         ball.getComponent(cc.Sprite).spriteFrame = texture;
-                //     }
-                // });
+            if (_.find(resultB, function(data) { return Number(ball.getChildByName('lb').getComponent(cc.Label).string) === data; })) {
+                cc.loader.loadRes('image/basketball', cc.SpriteFrame, function(err, texture) {
+                    ball.getComponent(cc.Sprite).spriteFrame = texture;
+                    ball.getChildByName('lb').color = cc.Color(255, 255, 255);
+                });
             }
         });
         _.forEach(this.BallPoolR.children, function(ball) {
-            if (_.find(tmp_DataSourceR, function(data) { return Number(ball.getChildByName('lb').getComponent(cc.Label).string) === data; })) {
-                ball.getComponent(cc.Sprite).spriteFrame = cc.loader.getRes('image/basketball', cc.SpriteFrame);
+            if (_.find(resultR, function(data) { return Number(ball.getChildByName('lb').getComponent(cc.Label).string) === data; })) {
+                cc.loader.loadRes('image/basketball', cc.SpriteFrame, function(err, texture) {
+                    ball.getComponent(cc.Sprite).spriteFrame = texture;
+                    ball.getChildByName('lb').color = cc.Color(255, 255, 255);
+                });
             }
         });
     },
 
+    // 返回
     onCloseHandler: function() {
         this.node.runAction(
             cc.sequence(
