@@ -30,8 +30,24 @@ cc.Class({
     start: function() {
         this.initData();
         this.initUI();
+    },
 
-        this.node.opacity = _opacityNone;
+    show: function() {
+        this.node.runAction(
+            cc.spawn(
+                cc.moveTo(0.2, cc.p(0, 0)),
+                cc.fadeIn(0.2)
+            )
+        );
+    },
+
+    hide: function() {
+        this.node.runAction(
+            cc.spawn(
+                cc.moveTo(0.2, cc.p(cc.director.getVisibleSize().width, 0)),
+                cc.fadeOut(0.2)
+            )
+        );
     },
 
     initData: function() {
@@ -60,21 +76,19 @@ cc.Class({
         }
     },
 
-    resetRestBall: function() {
+    resetBalls: function(isAll) {
         _.forEach(this.BallPoolB.children, function(ball) {
-            if (ball.opacity !== _opacityAll) {
-                cc.loader.loadRes('image/baseball', cc.SpriteFrame, function(err, texture) {
-                    ball.getComponent(cc.Sprite).spriteFrame = texture;
-                    ball.getChildByName('lb').color = cc.Color(0, 0, 0);
-                });
+            if (isAll || (!isAll && ball.opacity !== _opacityAll)) {
+                if (isAll) ball.opacity = _opacityNone;
+                ball.getChildByName('select').active = false;
+                ball.getChildByName('lb').color = new cc.Color(0, 0, 0);
             }
         });
         _.forEach(this.BallPoolR.children, function(ball) {
-            if (ball.opacity !== _opacityAll) {
-                cc.loader.loadRes('image/football', cc.SpriteFrame, function(err, texture) {
-                    ball.getComponent(cc.Sprite).spriteFrame = texture;
-                    ball.getChildByName('lb').color = cc.Color(0, 0, 0);
-                });
+            if (isAll || (!isAll && ball.opacity !== _opacityAll)) {
+                if (isAll) ball.opacity = _opacityNone;
+                ball.getChildByName('select').active = false;
+                ball.getChildByName('lb').color = new cc.Color(0, 0, 0);
             }
         });
     },
@@ -90,7 +104,7 @@ cc.Class({
     // 重置
     onResetHandler: function() {
         this.initData();
-        this.initUI();
+        this.resetBalls(true);
     },
 
     // 销毁
@@ -116,10 +130,10 @@ cc.Class({
 
     // 随机
     onRandHandler: function() {
-        this.resetRestBall();
+        this.resetBalls(false);
 
-        let tmp_DataSourceB = this.__DataSourceB;
-        let resultB = [];
+        var tmp_DataSourceB = this.__DataSourceB.slice(0);
+        var resultB = [];
         for (var i = 0; i < 5; i++) {
             if (tmp_DataSourceB.length <= 1) break;
             var index = _.random(1, tmp_DataSourceB.length - 1);
@@ -128,8 +142,8 @@ cc.Class({
         }
         if (resultB.length < 5) return;
 
-        let tmp_DataSourceR = this.__DataSourceR;
-        let resultR = [];
+        var tmp_DataSourceR = this.__DataSourceR.slice(0);
+        var resultR = [];
         for (var i = 0; i < 2; i++) {
             if (tmp_DataSourceR.length <= 1) break;
             var index = _.random(1, tmp_DataSourceR.length - 1);
@@ -140,31 +154,23 @@ cc.Class({
 
         _.forEach(this.BallPoolB.children, function(ball) {
             if (_.find(resultB, function(data) { return Number(ball.getChildByName('lb').getComponent(cc.Label).string) === data; })) {
-                cc.loader.loadRes('image/basketball', cc.SpriteFrame, function(err, texture) {
-                    ball.getComponent(cc.Sprite).spriteFrame = texture;
-                    ball.getChildByName('lb').color = cc.Color(255, 255, 255);
-                });
+                ball.getChildByName('select').active = true;
+                ball.getChildByName('lb').color = new cc.Color(255, 255, 255);
             }
         });
         _.forEach(this.BallPoolR.children, function(ball) {
             if (_.find(resultR, function(data) { return Number(ball.getChildByName('lb').getComponent(cc.Label).string) === data; })) {
-                cc.loader.loadRes('image/basketball', cc.SpriteFrame, function(err, texture) {
-                    ball.getComponent(cc.Sprite).spriteFrame = texture;
-                    ball.getChildByName('lb').color = cc.Color(255, 255, 255);
-                });
+                ball.getChildByName('select').active = true;
+                ball.getChildByName('lb').color = new cc.Color(255, 255, 255);
             }
         });
     },
 
-    // 返回
+    // 隐藏
     onCloseHandler: function() {
-        this.node.runAction(
-            cc.sequence(
-                cc.moveTo(0.2, cc.p(cc.director.getVisibleSize().width, 0)),
-                cc.callFunc(function() {
-                    this.node.removeFromParent();
-                }, this)
-            )
-        );
+        this.initData();
+        this.resetBalls(true);
+
+        this.hide();
     },
 });
