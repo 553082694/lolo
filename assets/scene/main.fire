@@ -441,7 +441,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 192.72,
+      "width": 200.24,
       "height": 90
     },
     "_rotationX": 0,
@@ -478,7 +478,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "LoLo",
+    "_N$string": "SoLo",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -658,7 +658,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 48,
+      "width": 128,
       "height": 50
     },
     "_rotationX": 0,
@@ -695,7 +695,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "六",
+    "_N$string": "大乐透",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -902,7 +902,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 48,
+      "width": 128,
       "height": 50
     },
     "_rotationX": 0,
@@ -939,7 +939,7 @@
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
-    "_N$string": "五",
+    "_N$string": "双色球",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -1333,7 +1333,9 @@
     "node": {
       "__id__": 3
     },
-    "_enabled": true
+    "_enabled": true,
+    "__LoLayer": null,
+    "__SoLayer": null
   },
   {
     "__type__": "cc.Canvas",

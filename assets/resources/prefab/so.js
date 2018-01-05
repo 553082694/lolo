@@ -7,10 +7,10 @@ var _opacityHalf = 100;
 // 全透明度
 var _opacityAll = 0;
 
-var _totalB = 35;
-var _totalR = 12;
-var _randB = 5;
-var _randR = 2;
+var _totalB = 33;
+var _totalR = 16;
+var _randB = 6;
+var _randR = 1;
 
 cc.Class({
     extends: cc.Component,
