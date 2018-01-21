@@ -27,6 +27,32 @@ cc.Class({
 
     onLoad: function() {
         this.node.opacity = _opacityAll;
+
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+    },
+
+    onTouchMove: function(event) {
+        var touches = event.getTouches();
+        var touchLoc = touches[0].getLocation();
+        if (this._touchSrcX === null)
+            this._touchSrcX = touchLoc.x;
+        var moveX = touchLoc.x - this._touchSrcX;
+        this.node.position = cc.v2(this.node.position.x + moveX, 0);
+        if (this.node.position.x < 0)
+            this.node.position = cc.v2(0, 0);
+
+        this._touchSrcX = touchLoc.x;
+    },
+
+    onTouchEnd: function() {
+        this._touchSrcX = null;
+        if (this.node.position.x >= 100)
+            this.onCloseHandler();
+        else
+            this.node.runAction(
+                cc.moveTo(0.05, cc.p(0, 0))
+            );
     },
 
     start: function() {
@@ -96,10 +122,14 @@ cc.Class({
     },
 
     onBallBHandler: function(target) {
+        if (target.currentTarget.opacity === _opacityAll) return;
+
         target.currentTarget.opacity = target.currentTarget.opacity === _opacityNone ? _opacityHalf : _opacityNone;
     },
 
     onBallRHandler: function(target) {
+        if (target.currentTarget.opacity === _opacityAll) return;
+
         target.currentTarget.opacity = target.currentTarget.opacity === _opacityNone ? _opacityHalf : _opacityNone;
     },
 
